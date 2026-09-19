@@ -19,7 +19,11 @@ pnpm install
 pnpm dev
 ```
 
-## Ключевые правила
+## Правила
+
+Полные правила работы с репозиторием — в [`AGENTS.md`](AGENTS.md), отличия компонентов от оригинала shadcn — в [`UPSTREAM.md`](UPSTREAM.md).
+
+### Кратко
 
 - Компоненты используют только роли (`bg-primary`, `text-muted-foreground`, `border-border` …).
   Стандартные палитра, радиусы и тени Tailwind отключены — `bg-red-500` или `rounded-lg` не сработают.
