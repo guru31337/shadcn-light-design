@@ -76,7 +76,7 @@ export function OnSurfaces({
     <div className="grid gap-4 lg:grid-cols-3">
       {SURFACES.map((s) => (
         <div key={s.key} className="flex min-w-0 flex-col gap-2">
-          <span className="type-ui-sm text-muted-foreground">{s.label}</span>
+          <span className="text-xs text-muted-foreground">{s.label}</span>
           <div
             className={cn(
               "flex min-w-0 flex-col gap-4 rounded-xl p-4",

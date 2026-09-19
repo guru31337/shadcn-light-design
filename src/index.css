@@ -7,11 +7,100 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   1. ПАЛИТРА — единственное место с конкретными цветами.
-   Шесть шкал. Компоненты палитру не используют — только роли (раздел 2).
-   Пигменты исходной темы стоят в шкалах точными значениями (помечены).
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* Структура файла повторяет то, что генерирует `shadcn init`: @theme inline → :root → @layer base.
+   Наши добавки помечены «+»: роли success/warning/info, шрифт --font-text, шкала заголовков,
+   палитра — источник значений ролей. */
+
+@theme inline {
+  /* + шрифты: Tektur — заголовки, JetBrains Mono — интерфейс и числа, Inter — связный текст */
+  --font-heading: "Tektur Variable", sans-serif;
+  --font-sans: "JetBrains Mono Variable", monospace;
+  --font-mono: "JetBrains Mono Variable", monospace;
+  --font-text: "Inter Variable", sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success); /* + */
+  --color-warning: var(--warning); /* + */
+  --color-info: var(--info); /* + */
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Роли. Значения — ступени палитры ниже. Контраст всех пар — в AGENTS.md и на витрине. */
+:root {
+  --background: var(--neutral-50);
+  --foreground: var(--neutral-900);
+  --card: var(--neutral-0);
+  --card-foreground: var(--neutral-900);
+  --popover: var(--neutral-0);
+  --popover-foreground: var(--neutral-900);
+  --primary: var(--brand-700);
+  --primary-foreground: var(--neutral-0);
+  --secondary: var(--neutral-300); /* на ступень темнее поверхностей: заливка сама даёт край */
+  --secondary-foreground: var(--neutral-900);
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-600);
+  --accent: var(--brand-200);
+  --accent-foreground: var(--neutral-900);
+  --destructive: var(--red-700);
+  --success: var(--green-700); /* + */
+  --warning: var(--amber-700); /* + */
+  --info: var(--blue-700); /* + */
+  --border: var(--neutral-300);
+  --input: var(--neutral-500); /* рамка контрола ≥3:1 */
+  --ring: var(--brand-600);
+  --chart-1: var(--blue-500);
+  --chart-2: var(--amber-600);
+  --chart-3: var(--green-500);
+  --chart-4: var(--red-500);
+  --chart-5: var(--brand-600);
+  --radius: 0.125rem; /* 2px; остальные радиусы shadcn считает от него */
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* + Палитра — источник значений ролей: шесть шкал, пигменты исходной темы помечены.
+   Компоненты и свой код палитру напрямую не используют — только роли. */
 :root {
   /* neutral */
   --neutral-0: oklch(0.995 0.003 95);
@@ -83,190 +172,38 @@
   --blue-900: oklch(0.32 0.05 240);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   2. РОЛИ — контракт shadcn + success / warning / info.
-   Каждая роль ссылается на ступень палитры. Контраст всех пар проверяет
-   src/theme.test.ts.
-   ═══════════════════════════════════════════════════════════════════════════ */
-:root {
-  /* поверхности */
-  --background: var(--neutral-50);          /* страница */
-  --foreground: var(--neutral-900);         /* основной текст */
-  --card: var(--neutral-0);                 /* карточки, панели, виджеты */
-  --card-foreground: var(--neutral-900);
-  --popover: var(--neutral-0);              /* меню, списки, тултипы, диалоги */
-  --popover-foreground: var(--neutral-900);
-  --muted: var(--neutral-100);              /* утопленные блоки, шапки таблиц */
-  --muted-foreground: var(--neutral-600);   /* второстепенный текст */
-
-  /* действия */
-  --primary: var(--brand-700);
-  --primary-foreground: var(--neutral-0);
-  --secondary: var(--neutral-300);         /* заливка сама даёт край на любой поверхности */
-  --secondary-foreground: var(--neutral-900);
-  --accent: var(--brand-200);               /* наведение и выбранный пункт */
-  --accent-foreground: var(--neutral-900);
-
-  /* статусы: читаются как текст на любой поверхности и как заливка с -foreground */
-  --destructive: var(--red-700);
-  --destructive-foreground: var(--neutral-0);
-  --success: var(--green-700);
-  --success-foreground: var(--neutral-0);
-  --warning: var(--amber-700);
-  --warning-foreground: var(--neutral-0);
-  --info: var(--blue-700);
-  --info-foreground: var(--neutral-0);
-
-  /* линии */
-  --border: var(--neutral-300);             /* лёгкая рамка контейнеров и элементов */
-  --input: var(--neutral-500);              /* рамка контролов, ≥3:1 */
-  --ring: var(--brand-600);                 /* фокус, ≥3:1 */
-
-  /* графики */
-  --chart-1: var(--blue-500);
-  --chart-2: var(--amber-600);
-  --chart-3: var(--green-500);
-  --chart-4: var(--red-500);
-  --chart-5: var(--brand-600);
-
-  /* сайдбар = те же роли */
-  --sidebar: var(--card);
-  --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: var(--accent);
-  --sidebar-accent-foreground: var(--accent-foreground);
-  --sidebar-border: var(--border);
-  --sidebar-ring: var(--ring);
-
-  /* радиусы: два значения по ролям (см. раздел 3 — какие имена Tailwind на них ссылаются) */
-  --radius-control: 2px;    /* кнопки, поля, бейджи, меню и пункты меню, уведомления */
-  --radius-container: 4px;  /* карточки, диалоги, панели, тосты */
-  --radius: var(--radius-container); /* переменная shadcn для calc() внутри компонентов */
-}
-
 /* .dark — зарезервировано: тёмная тема проектируется отдельно. */
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   3. РЕГИСТРАЦИЯ В TAILWIND — только роли и шкалы системы.
-   Стандартные палитра, радиусы и тени Tailwind отключены: bg-red-500,
-   rounded-lg, shadow-xl в коде не сработают.
-   ═══════════════════════════════════════════════════════════════════════════ */
-@theme {
-  --color-*: initial;
-  --radius-*: initial;
-  --shadow-*: initial;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
-  --color-warning: var(--warning);
-  --color-warning-foreground: var(--warning-foreground);
-  --color-info: var(--info);
-  --color-info-foreground: var(--info-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-
-  /* шрифты: Tektur — заголовки, JetBrains Mono — интерфейс и числа, Inter — связный текст */
-  --font-heading: "Tektur Variable", "JetBrains Mono Variable", ui-monospace, monospace;
-  --font-sans: "JetBrains Mono Variable", ui-monospace, monospace;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
-  --font-text: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-
-  /* чёрный и белый — для затемнения под модалками (bg-black/10) и ползунков (bg-white) в shadcn */
-  --color-black: var(--neutral-950);
-  --color-white: var(--neutral-0);
-
-  /* Радиусы. shadcn сам разводит роли по именам: rounded-lg — контролы, меню, уведомления;
-     rounded-xl…3xl — карточки, диалоги, тосты; rounded-4xl — бейдж. Задаём значения именам,
-     классы компонентов не трогаем. rounded-full и rounded-none встроены в Tailwind. */
-  --radius-xs: var(--radius-control);
-  --radius-sm: var(--radius-control);
-  --radius-md: var(--radius-control);
-  --radius-lg: var(--radius-control);
-  --radius-xl: var(--radius-container);
-  --radius-2xl: var(--radius-container);
-  --radius-3xl: var(--radius-container);
-  --radius-4xl: var(--radius-control);
-
-  /* Тени — только у слоёв над страницей. shadcn ставит shadow-md меню и поповерам, shadow-lg/xl —
-     диалогам, панелям, тостам. Прочие имена (shadow, shadow-sm) не определены: элементы плоские. */
-  --shadow-md: 0 4px 12px -2px oklch(0.235 0.018 158 / 0.12), 0 2px 4px -2px oklch(0.235 0.018 158 / 0.08);
-  --shadow-lg: 0 16px 32px -8px oklch(0.235 0.018 158 / 0.18), 0 4px 8px -4px oklch(0.235 0.018 158 / 0.10);
-  --shadow-xl: var(--shadow-lg);
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   4. ТИПОГРАФИКА — шкала Tailwind, стили со стандартными именами.
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* + Шкала заголовков и связного текста. Интерфейсный текст — обычные text-xs/sm/base
+   шрифтом по умолчанию (JetBrains Mono). */
 @utility type-display { font-family: var(--font-heading); font-size: var(--text-4xl); line-height: 2.5rem; font-weight: 500; letter-spacing: -0.02em; }
 @utility type-h1 { font-family: var(--font-heading); font-size: var(--text-3xl); line-height: 2.25rem; font-weight: 500; letter-spacing: -0.02em; }
 @utility type-h2 { font-family: var(--font-heading); font-size: var(--text-2xl); line-height: 2rem; font-weight: 500; letter-spacing: -0.015em; }
 @utility type-h3 { font-family: var(--font-heading); font-size: var(--text-xl); line-height: 1.75rem; font-weight: 500; letter-spacing: -0.01em; }
 @utility type-h4 { font-family: var(--font-heading); font-size: var(--text-base); line-height: 1.5rem; font-weight: 500; }
-@utility type-ui-lg { font-family: var(--font-sans); font-size: var(--text-base); line-height: 1.5rem; }
-@utility type-ui { font-family: var(--font-sans); font-size: var(--text-sm); line-height: 1.25rem; }
-@utility type-ui-sm { font-family: var(--font-sans); font-size: var(--text-xs); line-height: 1rem; }
 @utility type-body { font-family: var(--font-text); font-size: var(--text-sm); line-height: 1.375rem; }
 @utility type-caption { font-family: var(--font-text); font-size: var(--text-xs); line-height: 1rem; }
 
-/* Фокус с клавиатуры — одно правило для всех интерактивных элементов. */
-@utility focus-ring {
-  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-}
-
 @layer base {
   * {
-    @apply border-border outline-ring;
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
   }
-  body {
-    @apply bg-background text-foreground type-ui;
-  }
-  /* Связный текст — Inter. shadcn помечает описания и сообщения атрибутом data-slot,
-     поэтому шрифт назначается здесь, без правки компонентов. */
+  /* + связный текст — Inter: shadcn помечает описания и сообщения атрибутом data-slot */
   [data-slot$="-description"],
   [data-slot$="-error"],
-  [data-slot="tooltip-content"] {
+  [data-slot="tooltip-content"],
+  p {
     font-family: var(--font-text);
   }
-
+  /* + заголовки */
   h1 { @apply type-h1; }
   h2 { @apply type-h2; }
   h3 { @apply type-h3; }
   h4 { @apply type-h4; }
-  p { @apply type-body; }
 }

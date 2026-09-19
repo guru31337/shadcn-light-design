@@ -1,0 +1,252 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "shadcn-light-design",
+  "homepage": "https://github.com/guru31337/shadcn-light-design",
+  "items": [
+    {
+      "name": "font-heading-tektur",
+      "type": "registry:font",
+      "title": "Tektur (заголовки)",
+      "font": {
+        "family": "'Tektur Variable', sans-serif",
+        "provider": "google",
+        "import": "Tektur",
+        "variable": "--font-heading",
+        "subsets": [
+          "latin",
+          "cyrillic"
+        ],
+        "dependency": "@fontsource-variable/tektur"
+      }
+    },
+    {
+      "name": "font-sans-jetbrains-mono",
+      "type": "registry:font",
+      "title": "JetBrains Mono (интерфейс)",
+      "font": {
+        "family": "'JetBrains Mono Variable', monospace",
+        "provider": "google",
+        "import": "JetBrains_Mono",
+        "variable": "--font-sans",
+        "subsets": [
+          "latin",
+          "cyrillic"
+        ],
+        "dependency": "@fontsource-variable/jetbrains-mono"
+      }
+    },
+    {
+      "name": "font-mono-jetbrains-mono",
+      "type": "registry:font",
+      "title": "JetBrains Mono (код)",
+      "font": {
+        "family": "'JetBrains Mono Variable', monospace",
+        "provider": "google",
+        "import": "JetBrains_Mono",
+        "variable": "--font-mono",
+        "subsets": [
+          "latin",
+          "cyrillic"
+        ],
+        "dependency": "@fontsource-variable/jetbrains-mono"
+      }
+    },
+    {
+      "name": "font-text-inter",
+      "type": "registry:font",
+      "title": "Inter (связный текст)",
+      "font": {
+        "family": "'Inter Variable', sans-serif",
+        "provider": "google",
+        "import": "Inter",
+        "variable": "--font-text",
+        "subsets": [
+          "latin",
+          "cyrillic"
+        ],
+        "dependency": "@fontsource-variable/inter"
+      }
+    },
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "Светлая тема",
+      "description": "Роли shadcn + success/warning/info, радиус 0.125rem, шкала заголовков, Inter для описаний по data-slot.",
+      "registryDependencies": [
+        "guru31337/shadcn-light-design/font-heading-tektur",
+        "guru31337/shadcn-light-design/font-sans-jetbrains-mono",
+        "guru31337/shadcn-light-design/font-mono-jetbrains-mono",
+        "guru31337/shadcn-light-design/font-text-inter"
+      ],
+      "cssVars": {
+        "theme": {
+          "color-success": "var(--success)",
+          "color-warning": "var(--warning)",
+          "color-info": "var(--info)"
+        },
+        "light": {
+          "background": "oklch(0.975 0.007 95)",
+          "foreground": "oklch(0.235 0.018 158)",
+          "card": "oklch(0.995 0.003 95)",
+          "card-foreground": "oklch(0.235 0.018 158)",
+          "popover": "oklch(0.995 0.003 95)",
+          "popover-foreground": "oklch(0.235 0.018 158)",
+          "primary": "oklch(0.465 0.05 149)",
+          "primary-foreground": "oklch(0.995 0.003 95)",
+          "secondary": "oklch(0.862 0.014 105)",
+          "secondary-foreground": "oklch(0.235 0.018 158)",
+          "muted": "oklch(0.955 0.01 97)",
+          "muted-foreground": "oklch(0.475 0.018 128)",
+          "accent": "oklch(0.878 0.034 145)",
+          "accent-foreground": "oklch(0.235 0.018 158)",
+          "destructive": "oklch(0.485 0.128 25)",
+          "success": "oklch(0.465 0.088 170)",
+          "warning": "oklch(0.5 0.105 57)",
+          "info": "oklch(0.47 0.076 240)",
+          "border": "oklch(0.862 0.014 105)",
+          "input": "oklch(0.63 0.018 120)",
+          "ring": "oklch(0.545 0.048 148)",
+          "chart-1": "oklch(0.6 0.08 240)",
+          "chart-2": "oklch(0.62 0.12 54)",
+          "chart-3": "oklch(0.6 0.102 170)",
+          "chart-4": "oklch(0.58 0.13 24)",
+          "chart-5": "oklch(0.545 0.048 148)",
+          "radius": "0.125rem",
+          "sidebar": "oklch(0.995 0.003 95)",
+          "sidebar-foreground": "oklch(0.235 0.018 158)",
+          "sidebar-primary": "oklch(0.465 0.05 149)",
+          "sidebar-primary-foreground": "oklch(0.995 0.003 95)",
+          "sidebar-accent": "oklch(0.878 0.034 145)",
+          "sidebar-accent-foreground": "oklch(0.235 0.018 158)",
+          "sidebar-border": "oklch(0.862 0.014 105)",
+          "sidebar-ring": "oklch(0.545 0.048 148)"
+        }
+      },
+      "css": {
+        "@utility type-display": {
+          "font-family": "var(--font-heading)",
+          "font-size": "var(--text-4xl)",
+          "line-height": "2.5rem",
+          "font-weight": "500",
+          "letter-spacing": "-0.02em"
+        },
+        "@utility type-h1": {
+          "font-family": "var(--font-heading)",
+          "font-size": "var(--text-3xl)",
+          "line-height": "2.25rem",
+          "font-weight": "500",
+          "letter-spacing": "-0.02em"
+        },
+        "@utility type-h2": {
+          "font-family": "var(--font-heading)",
+          "font-size": "var(--text-2xl)",
+          "line-height": "2rem",
+          "font-weight": "500",
+          "letter-spacing": "-0.015em"
+        },
+        "@utility type-h3": {
+          "font-family": "var(--font-heading)",
+          "font-size": "var(--text-xl)",
+          "line-height": "1.75rem",
+          "font-weight": "500",
+          "letter-spacing": "-0.01em"
+        },
+        "@utility type-h4": {
+          "font-family": "var(--font-heading)",
+          "font-size": "var(--text-base)",
+          "line-height": "1.5rem",
+          "font-weight": "500"
+        },
+        "@utility type-body": {
+          "font-family": "var(--font-text)",
+          "font-size": "var(--text-sm)",
+          "line-height": "1.375rem"
+        },
+        "@utility type-caption": {
+          "font-family": "var(--font-text)",
+          "font-size": "var(--text-xs)",
+          "line-height": "1rem"
+        },
+        "@layer base": {
+          "[data-slot$=\"-description\"], [data-slot$=\"-error\"], [data-slot=\"tooltip-content\"], p": {
+            "font-family": "var(--font-text)"
+          },
+          "h1": {
+            "@apply type-h1": {}
+          },
+          "h2": {
+            "@apply type-h2": {}
+          },
+          "h3": {
+            "@apply type-h3": {}
+          },
+          "h4": {
+            "@apply type-h4": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "shadcn Button (base-nova): варианты success и рамка у мягкого destructive.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "shadcn Badge (base-nova): варианты success/warning/info и рамка у мягкого destructive.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "shadcn Alert (base-nova): варианты success/warning/info.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "light-design",
+      "type": "registry:item",
+      "title": "Светлая дизайн-система целиком",
+      "description": "Тема, шрифты и изменённые компоненты (button, badge, alert). Остальные компоненты — штатные из shadcn.",
+      "registryDependencies": [
+        "guru31337/shadcn-light-design/theme",
+        "guru31337/shadcn-light-design/button",
+        "guru31337/shadcn-light-design/badge",
+        "guru31337/shadcn-light-design/alert"
+      ]
+    }
+  ]
+}

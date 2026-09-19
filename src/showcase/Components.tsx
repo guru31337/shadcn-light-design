@@ -170,11 +170,11 @@ function SampleCard() {
       </CardHeader>
       <CardContent className="flex justify-between gap-4">
         <div className="flex flex-col">
-          <span className="type-ui-sm text-muted-foreground">Счёт</span>
+          <span className="text-xs text-muted-foreground">Счёт</span>
           <span>7d1c…a90e</span>
         </div>
         <div className="flex flex-col items-end">
-          <span className="type-ui-sm text-muted-foreground">Баланс</span>
+          <span className="text-xs text-muted-foreground">Баланс</span>
           <span>1 000 000.00 RUB</span>
         </div>
       </CardContent>
