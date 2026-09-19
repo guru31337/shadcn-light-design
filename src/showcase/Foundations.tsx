@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { RAMPS, ROLE_SOURCE } from "./theme-source"
 import { contrast, cssVar, over, toHex, toRgb } from "./contrast"
 import { Block, Section } from "./layout"
@@ -19,7 +21,7 @@ function Palette() {
           <span className="type-ui-sm text-muted-foreground">
             {RAMP_LABEL[ramp.name]}
           </span>
-          <div className="grid auto-cols-fr grid-flow-col overflow-hidden rounded-md border border-border">
+          <div className="grid auto-cols-fr grid-flow-col overflow-hidden rounded-xl border border-border">
             {ramp.steps.map(({ step, pigment }) => {
               const rgb = toRgb(cssVar(`${ramp.name}-${step}`))
               const onLight =
@@ -138,7 +140,7 @@ function Roles() {
               return (
                 <div
                   key={role}
-                  className="flex flex-col overflow-hidden rounded-md border border-border bg-card"
+                  className="flex flex-col overflow-hidden rounded-xl border border-border bg-card"
                 >
                   <div
                     className="flex h-14 items-end p-2"
@@ -233,7 +235,7 @@ const TYPE = [
 
 function Typography() {
   return (
-    <div className="flex flex-col divide-y divide-border rounded-md border border-border bg-card">
+    <div className="flex flex-col divide-y divide-border rounded-xl border border-border bg-card">
       {TYPE.map(([cls, meta, sample]) => (
         <div
           key={cls}
@@ -255,13 +257,13 @@ function Scales() {
     <div className="grid gap-6 lg:grid-cols-3">
       <Block
         title="Радиусы"
-        note="Два значения + полное скругление для точек, радио и аватаров."
+        note="Две переменные. shadcn ссылается на них именами шкалы: xs–lg и 4xl → --radius-control, xl–3xl → --radius-container."
       >
         <div className="flex gap-4">
           {[
-            ["rounded-sm", "2px · контролы"],
-            ["rounded-md", "4px · контейнеры"],
-            ["rounded-full", "точки, радио"],
+            ["rounded-lg", "control · контролы, меню"],
+            ["rounded-xl", "container · карточки, диалоги"],
+            ["rounded-full", "точки, радио, аватары"],
           ].map(([c, l]) => (
             <div key={c} className="flex flex-col items-center gap-2">
               <div className={`size-16 border border-input bg-card ${c}`} />
@@ -282,7 +284,7 @@ function Scales() {
           ].map(([c, l]) => (
             <div key={c} className="flex flex-col items-center gap-2">
               <div
-                className={`size-16 rounded-md border border-border bg-popover ${c}`}
+                className={`size-16 rounded-xl border border-border bg-popover ${c}`}
               />
               <span className="type-ui-sm text-muted-foreground">{c}</span>
               <span className="type-caption text-muted-foreground">{l}</span>
@@ -292,15 +294,15 @@ function Scales() {
       </Block>
       <Block
         title="Фокус"
-        note="Утилита focus-ring: сплошное кольцо ring 2px с отступом 2px."
+        note="Штатный фокус shadcn: рамка элемента цвета --ring и мягкий ореол ring/50. Настраивается одной переменной --ring."
       >
         <div className="flex items-center gap-4 p-2">
-          <div className="flex h-8 items-center rounded-sm bg-primary px-2.5 text-primary-foreground outline-2 outline-offset-2 outline-ring">
-            Кнопка
-          </div>
-          <div className="flex h-8 w-40 items-center rounded-sm border border-ring bg-card px-2.5 outline-2 outline-offset-2 outline-ring">
-            Поле
-          </div>
+          <Button className="border-ring ring-3 ring-ring/50">Кнопка</Button>
+          <Input
+            className="w-40 border-ring ring-3 ring-ring/50"
+            defaultValue="Поле"
+            aria-label="Поле в фокусе"
+          />
         </div>
       </Block>
     </div>

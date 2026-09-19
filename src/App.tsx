@@ -26,7 +26,7 @@ export default function App() {
               <a
                 key={href}
                 href={href}
-                className="rounded-sm px-2 py-1 text-muted-foreground focus-ring hover:bg-accent hover:text-accent-foreground"
+                className="rounded-lg px-2 py-1 text-muted-foreground focus-ring hover:bg-accent hover:text-accent-foreground"
               >
                 {label}
               </a>

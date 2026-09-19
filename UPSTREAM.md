@@ -1,23 +1,30 @@
 # Отличия компонентов от оригинала shadcn
 
-Реестр всех правок в `src/components/ui/`. Нужен, чтобы обновлять компоненты
+Реестр всех правок в `src/components/ui/`. Остальные файлы побайтово совпадают с реестром
+shadcn (стиль `base-nova`). Реестр нужен, чтобы обновлять компоненты
 (`pnpm dlx shadcn@latest add <имя> --dry-run` → `--diff <файл>`) и не терять свои изменения.
-Правило — в `AGENTS.md`: в компонент попадают только новые варианты ролей и рамки мягких
-вариантов, всё остальное решается в `src/index.css`.
 
-> **Состояние:** правки этапа 1 сделаны до того, как был принят принцип «дизайн в index.css».
-> Строки с пометкой **→ index.css** будут вынесены в тему и откатаны в компонентах к оригиналу.
+Правило — в `AGENTS.md` (правило №1): всё, что можно решить в `src/index.css`, решается там.
+В компонент попадают только новые варианты для ролей, которых нет в shadcn, и рамки у вариантов,
+которые сливаются с поверхностью.
 
-| Файл | Изменение | Почему | Статус |
-|---|---|---|---|
-| `button.tsx` | варианты `success`; рамка `border-destructive/40` у `destructive`; рамка `border-border` у `secondary` | роли нет в shadcn; край мягкого варианта | остаётся |
-| `button.tsx` | радиусы `rounded-sm`, фокус `focus-ring`, hover через `accent`, размеры без `rounded-[min(…)]` | — | → index.css |
-| `badge.tsx` | варианты `success`, `warning`, `info`; рамки мягких вариантов и `secondary` | роли нет в shadcn; край | остаётся |
-| `badge.tsx` | `rounded-sm` вместо `rounded-4xl`, фокус | — | → index.css |
-| `alert.tsx` | варианты `success`, `warning`, `info`; мягкая подложка + рамка у статусных | роли нет в shadcn | остаётся |
-| `alert.tsx` | `rounded-md`, шрифт описания `type-body` | — | → index.css |
-| `card.tsx` | `rounded-md`, `ring-border`, подвал `bg-muted`, шрифт описания | — | → index.css |
-| `input.tsx` | `rounded-sm`, `bg-card`, фокус, без кольца ошибки | — | → index.css |
-| `select.tsx` | `rounded-sm`/`rounded-md`, `bg-card`, фокус, `ring-border` | — | → index.css |
-| `field.tsx` | шрифт описания и ошибки, `rounded-md` у карточки выбора | — | → index.css |
-| `scroll-area.tsx` | удалён неиспользуемый `import * as React` | оригинал не собирается со строгим `tsconfig` шаблона (`noUnusedLocals`) | остаётся |
+| Файл | Изменение | Почему нельзя в `index.css` |
+|---|---|---|
+| `button.tsx` | вариант `success` (копия `destructive` без `dark:`) | роли `success` нет в shadcn, вариант задаётся в `cva` |
+| `button.tsx` | `border-destructive/40` у варианта `destructive` | заливка `destructive/10` с прозрачностью зашита в класс; без рамки кнопка сливается с `muted` (1.02:1) |
+| `badge.tsx` | варианты `success`, `warning`, `info` (копия `destructive` без `dark:`) | ролей нет в shadcn |
+| `badge.tsx` | `border-destructive/40` у варианта `destructive` | та же причина, что у кнопки |
+| `alert.tsx` | варианты `success`, `warning`, `info` (копия `destructive` без `dark:`) | ролей нет в shadcn |
+| `scroll-area.tsx` | удалён неиспользуемый `import * as React` | не стилевая правка: оригинал не собирается со строгим `tsconfig` шаблона (`noUnusedLocals`) |
+
+## Что решено в `index.css`, а не в компонентах
+
+- **Радиусы.** Значения имён шкалы: `xs`–`lg` и `4xl` → `--radius-control`, `xl`–`3xl` →
+  `--radius-container`.
+- **Inter в описаниях, ошибках, тултипах** — правило по `data-slot` в `@layer base`.
+- **Видимость `secondary`** — роль `--secondary` на ступень темнее поверхностей, заливка сама
+  даёт край.
+- **Фокус** — штатный shadcn (`border-ring` + `ring-ring/50`), настраивается только `--ring`.
+- **Тени** — определены только имена, которые shadcn ставит слоям над страницей.
+- **`bg-black/10` и `bg-white`** в оверлеях и ползунке — `--color-black` и `--color-white`
+  ссылаются на палитру.

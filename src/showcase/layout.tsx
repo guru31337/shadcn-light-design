@@ -79,7 +79,7 @@ export function OnSurfaces({
           <span className="type-ui-sm text-muted-foreground">{s.label}</span>
           <div
             className={cn(
-              "flex min-w-0 flex-col gap-4 rounded-md p-4",
+              "flex min-w-0 flex-col gap-4 rounded-xl p-4",
               s.className,
               className
             )}

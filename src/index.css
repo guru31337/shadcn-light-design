@@ -102,7 +102,7 @@
   /* действия */
   --primary: var(--brand-700);
   --primary-foreground: var(--neutral-0);
-  --secondary: var(--neutral-100);
+  --secondary: var(--neutral-300);         /* заливка сама даёт край на любой поверхности */
   --secondary-foreground: var(--neutral-900);
   --accent: var(--brand-200);               /* наведение и выбранный пункт */
   --accent-foreground: var(--neutral-900);
@@ -139,7 +139,10 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
-  --radius: 4px;
+  /* радиусы: два значения по ролям (см. раздел 3 — какие имена Tailwind на них ссылаются) */
+  --radius-control: 2px;    /* кнопки, поля, бейджи, меню и пункты меню, уведомления */
+  --radius-container: 4px;  /* карточки, диалоги, панели, тосты */
+  --radius: var(--radius-container); /* переменная shadcn для calc() внутри компонентов */
 }
 
 /* .dark — зарезервировано: тёмная тема проектируется отдельно. */
@@ -201,13 +204,27 @@
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
   --font-text: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
 
-  /* радиусы: два значения + rounded-full (встроен) для точек статуса, радио и аватаров */
-  --radius-sm: 2px;   /* контролы: кнопки, поля, бейджи, пункты меню */
-  --radius-md: 4px;   /* контейнеры: карточки, панели, меню, диалоги */
+  /* чёрный и белый — для затемнения под модалками (bg-black/10) и ползунков (bg-white) в shadcn */
+  --color-black: var(--neutral-950);
+  --color-white: var(--neutral-0);
 
-  /* тени: только у слоёв над страницей */
-  --shadow-md: 0 4px 12px -2px oklch(0.235 0.018 158 / 0.12), 0 2px 4px -2px oklch(0.235 0.018 158 / 0.08);   /* меню, списки, тултипы */
-  --shadow-lg: 0 16px 32px -8px oklch(0.235 0.018 158 / 0.18), 0 4px 8px -4px oklch(0.235 0.018 158 / 0.10);  /* диалоги, панели, тосты */
+  /* Радиусы. shadcn сам разводит роли по именам: rounded-lg — контролы, меню, уведомления;
+     rounded-xl…3xl — карточки, диалоги, тосты; rounded-4xl — бейдж. Задаём значения именам,
+     классы компонентов не трогаем. rounded-full и rounded-none встроены в Tailwind. */
+  --radius-xs: var(--radius-control);
+  --radius-sm: var(--radius-control);
+  --radius-md: var(--radius-control);
+  --radius-lg: var(--radius-control);
+  --radius-xl: var(--radius-container);
+  --radius-2xl: var(--radius-container);
+  --radius-3xl: var(--radius-container);
+  --radius-4xl: var(--radius-control);
+
+  /* Тени — только у слоёв над страницей. shadcn ставит shadow-md меню и поповерам, shadow-lg/xl —
+     диалогам, панелям, тостам. Прочие имена (shadow, shadow-sm) не определены: элементы плоские. */
+  --shadow-md: 0 4px 12px -2px oklch(0.235 0.018 158 / 0.12), 0 2px 4px -2px oklch(0.235 0.018 158 / 0.08);
+  --shadow-lg: 0 16px 32px -8px oklch(0.235 0.018 158 / 0.18), 0 4px 8px -4px oklch(0.235 0.018 158 / 0.10);
+  --shadow-xl: var(--shadow-lg);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -239,6 +256,14 @@
   body {
     @apply bg-background text-foreground type-ui;
   }
+  /* Связный текст — Inter. shadcn помечает описания и сообщения атрибутом data-slot,
+     поэтому шрифт назначается здесь, без правки компонентов. */
+  [data-slot$="-description"],
+  [data-slot$="-error"],
+  [data-slot="tooltip-content"] {
+    font-family: var(--font-text);
+  }
+
   h1 { @apply type-h1; }
   h2 { @apply type-h2; }
   h3 { @apply type-h3; }
