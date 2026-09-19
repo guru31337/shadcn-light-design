@@ -1,21 +1,36 @@
-# React + TypeScript + Vite + shadcn/ui
+# shadcn-light-design
 
-This is a template for a new Vite project with React, TypeScript, and shadcn/ui.
+Светлая дизайн-система для проектов на [shadcn/ui](https://ui.shadcn.com) (Tailwind v4, Base UI).
+Бумага, чернила и ровные колонки цифр: тёплая нейтральная шкала, шалфейный бренд,
+Tektur в заголовках, JetBrains Mono в интерфейсе, Inter — только в связном тексте.
 
-## Adding components
+## Что внутри
 
-To add components to your app, run the following command:
+| Путь | Что |
+|---|---|
+| `src/index.css` | Вся тема: палитра (6 шкал) → роли по контракту shadcn → регистрация в Tailwind, шрифты, радиусы, тени, стили текста |
+| `src/components/ui/*` | Все компоненты shadcn; классы доводятся под систему |
+| `src/showcase/*` | Витрина: палитра, роли с замеренным контрастом, типографика, компоненты на трёх поверхностях |
+
+## Запуск витрины
 
 ```bash
-npx shadcn@latest add button
+pnpm install
+pnpm dev
 ```
 
-This will place the ui components in the `src/components` directory.
+## Ключевые правила
 
-## Using components
+- Компоненты используют только роли (`bg-primary`, `text-muted-foreground`, `border-border` …).
+  Стандартные палитра, радиусы и тени Tailwind отключены — `bg-red-500` или `rounded-lg` не сработают.
+- Радиусы: `rounded-sm` 2px — контролы, `rounded-md` 4px — контейнеры, `rounded-full` — точки, радио, аватары.
+- У каждого элемента видимая граница на любой поверхности: сплошная заливка или рамка `border`.
+  Мягкие варианты — заливка 10% + рамка 40% того же цвета.
+- Тени — только у слоёв над страницей (`shadow-md` меню, `shadow-lg` диалоги).
+- Фокус — утилита `focus-ring`: сплошное кольцо `ring` 2px с отступом 2px.
 
-To use the components in your app, import them as follows:
+## Состояние
 
-```tsx
-import { Button } from "@/components/ui/button"
-```
+- [x] Этап 1 — палитра, роли, шрифты, радиусы; Button, Badge, Input, Select, Field, Card, Alert.
+- [ ] Этап 2 — все компоненты shadcn под систему, полная витрина, тест контраста.
+- [ ] Этап 3 — `DESIGN.md` (правила для человека и ИИ), паттерны, реестр для `npx shadcn add`.
