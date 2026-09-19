@@ -238,7 +238,7 @@
     },
     {
       "name": "light-design",
-      "type": "registry:item",
+      "type": "registry:theme",
       "title": "Светлая дизайн-система целиком",
       "description": "Тема, шрифты и изменённые компоненты (button, badge, alert). Остальные компоненты — штатные из shadcn.",
       "registryDependencies": [

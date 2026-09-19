@@ -93,7 +93,9 @@ const registry = {
     })),
     {
       name: "light-design",
-      type: "registry:item",
+      // registry:theme, а не registry:item: CLI перезаписывает существующие переменные проекта
+      // (--primary, --radius, --font-sans …), только если запрошен элемент типа theme/style/font.
+      type: "registry:theme",
       title: "Светлая дизайн-система целиком",
       description: "Тема, шрифты и изменённые компоненты (button, badge, alert). Остальные компоненты — штатные из shadcn.",
       registryDependencies: ["theme", "button", "badge", "alert"].map(gh),
