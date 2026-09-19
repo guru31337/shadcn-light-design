@@ -88,7 +88,7 @@
   --chart-3: var(--green-500);
   --chart-4: var(--red-500);
   --chart-5: var(--brand-600);
-  --radius: 0.125rem; /* 2px; остальные радиусы shadcn считает от него */
+  --radius: 0.25rem; /* 4px; остальные радиусы shadcn считает от него */
   --sidebar: var(--card);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
