@@ -1,4 +1,4 @@
-import { Search } from "lucide-react"
+import { Copy, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Field,
@@ -11,59 +11,23 @@ import { Input } from "@/components/ui/input"
 import {
   InputGroup,
   InputGroupAddon,
+  InputGroupButton,
   InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
 } from "@/components/ui/input-group"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 import { Page, Preview, Section } from "../kit"
-
-const TYPES = [
-  { label: "Все типы", value: null },
-  { label: "Акции", value: "share" },
-  { label: "Облигации", value: "bond" },
-  { label: "Фьючерсы", value: "futures" },
-]
-
-function TypeSelect({
-  invalid,
-  disabled,
-}: {
-  invalid?: boolean
-  disabled?: boolean
-}) {
-  return (
-    <Select items={TYPES} defaultValue="share" disabled={disabled}>
-      <SelectTrigger className="w-full" aria-invalid={invalid || undefined}>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {TYPES.map((t) => (
-            <SelectItem key={t.value} value={t.value}>
-              {t.label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  )
-}
 
 export function FormsPage() {
   return (
     <Page
-      title="Поля формы"
-      lead="Field, Label, Input, InputGroup, Select — штатные компоненты shadcn без правок. Подпись над полем, подсказка и ошибка под ним набираются Inter."
+      title="Поля ввода"
+      lead="Field, Label, Input, Textarea, InputGroup — штатные компоненты shadcn без правок. Подпись над полем, подсказка и ошибка под ним; подсказка и ошибка набираются Inter."
     >
       <Section
-        title="Поле ввода"
-        description="Field + FieldLabel + Input + FieldDescription. Рамка поля — роль input, ≥3:1 к любой поверхности."
+        title="Состояния"
+        description="Field + FieldLabel + Input + FieldDescription. Рамка поля — роль input, ≥3:1 к любой поверхности. Ошибка — data-invalid на Field и aria-invalid на поле; недоступное — data-disabled и disabled."
       >
         <Preview>
           <FieldGroup className="max-w-md">
@@ -83,29 +47,41 @@ export function FormsPage() {
             </Field>
             <Field data-disabled>
               <FieldLabel htmlFor="f-off">Недоступное поле</FieldLabel>
-              <Input id="f-off" disabled placeholder="Только для LIVE" />
+              <Input id="f-off" disabled defaultValue="Только для LIVE" />
+              <FieldDescription>
+                Серая заливка — это bg-input/50 из shadcn: так недоступное поле
+                отличается от пустого.
+              </FieldDescription>
             </Field>
           </FieldGroup>
         </Preview>
       </Section>
 
       <Section
-        title="С кнопкой и иконкой"
-        description="Кнопка рядом с полем — той же высоты 32px. Иконка внутри поля — через InputGroup, а не абсолютным позиционированием."
+        title="Textarea"
+        description="Многострочное поле растёт по содержимому (field-sizing-content). Те же состояния, что у Input."
       >
         <Preview>
           <FieldGroup className="max-w-md">
             <Field>
-              <FieldLabel htmlFor="f-check">Боевой токен</FieldLabel>
-              <div className="flex gap-2">
-                <Input
-                  id="f-check"
-                  type="password"
-                  defaultValue="t.live-token-value"
-                />
-                <Button variant="secondary">Проверить</Button>
-              </div>
+              <FieldLabel htmlFor="f-note">Заметка к стратегии</FieldLabel>
+              <Textarea id="f-note" placeholder="Условия входа, стоп, тейк…" />
             </Field>
+            <Field data-invalid>
+              <FieldLabel htmlFor="f-json">Параметры (JSON)</FieldLabel>
+              <Textarea id="f-json" aria-invalid defaultValue='{ "lots": 1,' />
+              <FieldError>Ожидалась закрывающая скобка в строке 1.</FieldError>
+            </Field>
+          </FieldGroup>
+        </Preview>
+      </Section>
+
+      <Section
+        title="InputGroup"
+        description="Иконка, текст или кнопка внутри поля — InputGroupAddon слева или справа (align), а не абсолютное позиционирование. Внутри группы — InputGroupInput и InputGroupTextarea."
+      >
+        <Preview>
+          <FieldGroup className="max-w-md">
             <Field>
               <FieldLabel htmlFor="f-search">Поиск инструмента</FieldLabel>
               <InputGroup>
@@ -118,28 +94,44 @@ export function FormsPage() {
                 </InputGroupAddon>
               </InputGroup>
             </Field>
-          </FieldGroup>
-        </Preview>
-      </Section>
-
-      <Section
-        title="Select"
-        description="Триггер выглядит как поле. Список открывается во всплывающем слое с тенью shadow-md."
-      >
-        <Preview>
-          <FieldGroup className="max-w-md">
             <Field>
-              <FieldLabel>Тип инструмента</FieldLabel>
-              <TypeSelect />
+              <FieldLabel htmlFor="f-price">Цена</FieldLabel>
+              <InputGroup>
+                <InputGroupInput id="f-price" defaultValue="284.15" />
+                <InputGroupAddon align="inline-end">
+                  <InputGroupText>RUB</InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
             </Field>
-            <Field data-invalid>
-              <FieldLabel>С ошибкой</FieldLabel>
-              <TypeSelect invalid />
-              <FieldError>Выберите тип.</FieldError>
+            <Field>
+              <FieldLabel htmlFor="f-account">ID счёта</FieldLabel>
+              <InputGroup>
+                <InputGroupInput
+                  id="f-account"
+                  readOnly
+                  defaultValue="2000123456"
+                />
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton size="icon-xs" aria-label="Скопировать">
+                    <Copy />
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
             </Field>
-            <Field data-disabled>
-              <FieldLabel>Недоступный</FieldLabel>
-              <TypeSelect disabled />
+            <Field>
+              <FieldLabel htmlFor="f-msg">Сообщение в поддержку</FieldLabel>
+              <InputGroup>
+                <InputGroupTextarea
+                  id="f-msg"
+                  placeholder="Опишите, что произошло"
+                />
+                <InputGroupAddon align="block-end">
+                  <InputGroupText>0 / 500</InputGroupText>
+                  <InputGroupButton variant="default" className="ml-auto">
+                    Отправить
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
             </Field>
           </FieldGroup>
         </Preview>
@@ -147,7 +139,7 @@ export function FormsPage() {
 
       <Section
         title="В контексте"
-        description="Форма настроек целиком: группы полей и действия внизу."
+        description="Форма настроек целиком: группы полей, кнопка рядом с полем той же высоты 32px, действия внизу."
       >
         <Preview>
           <form
@@ -157,18 +149,23 @@ export function FormsPage() {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="c-token">Токен (Read/Write)</FieldLabel>
-                <Input
-                  id="c-token"
-                  type="password"
-                  defaultValue="t.live-token-value"
-                />
+                <div className="flex gap-2">
+                  <Input
+                    id="c-token"
+                    type="password"
+                    defaultValue="t.live-token-value"
+                  />
+                  <Button variant="secondary" type="button">
+                    Проверить
+                  </Button>
+                </div>
+                <FieldDescription>
+                  Нужны права на торговлю и чтение портфеля.
+                </FieldDescription>
               </Field>
               <Field>
-                <FieldLabel>Окружение по умолчанию</FieldLabel>
-                <TypeSelect />
-                <FieldDescription>
-                  Можно переключить в любой момент на странице настроек.
-                </FieldDescription>
+                <FieldLabel htmlFor="c-name">Название счёта</FieldLabel>
+                <Input id="c-name" defaultValue="Основной" />
               </Field>
             </FieldGroup>
             <div className="flex justify-end gap-2">

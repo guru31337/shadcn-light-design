@@ -8,20 +8,20 @@ const HEADINGS = [
     "Поиск инструмента",
   ],
   [
-    "type-h1 · h1",
+    "type-h1",
     "Tektur · 30/36 · 500",
     "Заголовок страницы",
     "Настройки терминала",
   ],
-  ["type-h2 · h2", "Tektur · 24/32 · 500", "Раздел страницы", "API Т-Банка"],
+  ["type-h2", "Tektur · 24/32 · 500", "Раздел страницы", "API Т-Банка"],
   [
-    "type-h3 · h3",
+    "type-h3",
     "Tektur · 20/28 · 500",
     "Подраздел, заголовок панели",
     "Стабильность соединения",
   ],
   [
-    "type-h4 · h4",
+    "type-h4",
     "Tektur · 16/24 · 500",
     "Заголовок карточки и виджета",
     "Стакан заявок",
@@ -102,7 +102,7 @@ export function TypographyPage() {
     >
       <Section
         title="Заголовки"
-        description="Утилиты type-display и type-h1…h4; элементы h1–h4 получают их автоматически."
+        description="Утилиты type-display и type-h1…h4 ставятся классом. Сами h1–h4 не стилизуются, как и в shadcn: заголовки внутри компонентов (PopoverTitle, шапка Accordion) shadcn оформляет сам."
       >
         <Scale rows={HEADINGS} />
       </Section>

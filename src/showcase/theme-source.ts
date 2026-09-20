@@ -18,11 +18,10 @@ export const RAMPS: Ramp[] = (() => {
   return [...ramps.values()]
 })()
 
-/** Роль → ступень палитры, например primary → brand-700. */
+/** Роль → ступень палитры (primary → brand-700) или другая роль (sidebar → card). */
 export const ROLE_SOURCE: Record<string, string> = (() => {
   const out: Record<string, string> = {}
-  const re =
-    /^\s*--([a-z0-9-]+):\s*var\(--((?:neutral|brand|green|red|amber|blue)-\d+)\)/gm
-  for (const [, role, step] of css.matchAll(re)) out[role] = step
+  const re = /^\s*--([a-z0-9-]+):\s*var\(--([a-z0-9-]+)\)/gm
+  for (const [, role, ref] of css.matchAll(re)) out[role] ??= ref
   return out
 })()

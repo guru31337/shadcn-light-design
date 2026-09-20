@@ -1,4 +1,5 @@
-// Контраст WCAG, посчитанный в браузере по реальным значениям CSS-переменных.
+// Цвета из браузера: реальные значения CSS-переменных → sRGB. Формулы контраста и пары —
+// в contrast-rules.ts, общие с тестом.
 let ctx: CanvasRenderingContext2D | null = null
 
 /** Любой CSS-цвет (oklch, hex, …) → sRGB 0..1 через canvas. */
@@ -19,21 +20,6 @@ export function cssVar(name: string): string {
   return getComputedStyle(document.documentElement)
     .getPropertyValue(`--${name}`)
     .trim()
-}
-
-const lin = (c: number) =>
-  c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
-const lum = ([r, g, b]: number[]) =>
-  0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
-
-export function contrast(a: number[], b: number[]): number {
-  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p)
-  return (x + 0.05) / (y + 0.05)
-}
-
-/** Наложение цвета с прозрачностью (как bg-destructive/10) поверх подложки. */
-export function over(fg: number[], bg: number[], alpha: number): number[] {
-  return fg.map((v, i) => v * alpha + bg[i] * (1 - alpha))
 }
 
 export function toHex(rgb: number[]): string {

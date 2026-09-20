@@ -1,0 +1,28 @@
+{
+  "VsCodeTaskButtons.tasks": [
+    {
+      "label": "$(rocket) Dev",
+      "task": "Run Pnpm Dev",
+      "tooltip": "Git Pull + pnpm run dev",
+      "color": "warning"
+    },
+    {
+      "label": "$(git-branch) Switch Ref",
+      "task": "Git Switch Manual",
+      "tooltip": "Кликни, чтобы вставить длинную ветку",
+      "color": "error"
+    },
+    {
+      "label": "$(cloud-upload) Mega Push",
+      "task": "Git Mega Push",
+      "tooltip": "Add + Commit + Push в текущую ветку",
+      "color": "warning"
+    },
+    {
+      "label": "$(trash) Reset/Pull",
+      "task": "Git Hard Reset",
+      "tooltip": "ВНИМАНИЕ: Удалит все локальные правки и подтянет код с сервера",
+      "color": "error"
+    }
+  ]
+}

@@ -15,7 +15,7 @@ export function Page({
   return (
     <article className="flex flex-col gap-14">
       <header className="flex flex-col gap-3 border-b border-border pb-8">
-        <h1>{title}</h1>
+        <h1 className="type-h1">{title}</h1>
         {lead && (
           <p className="max-w-2xl text-base leading-7 text-muted-foreground">
             {lead}

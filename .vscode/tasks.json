@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Git Switch Manual",
+      "type": "shell",
+      "command": "git fetch && git switch ${input:branchName}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Git Mega Push",
+      "type": "shell",
+      "command": "git add . && git commit -m \"${input:commitMsg}\" && git push origin HEAD",
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "Run Pnpm Dev",
+      "type": "shell",
+      "command": "git pull && pnpm run dev",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated", // Важнейшая штука: привязывает задачу к одному терминалу
+        "clear": true, // Чистит экран перед каждым запуском
+        "group": "dev-group", // Группировка, чтобы VS Code точно понимал, что это одна сущность
+        "showReuseMessage": false,
+        "focus": true
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Git Hard Reset",
+      "type": "shell",
+      "command": "git fetch origin && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)",
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "showReuseMessage": false,
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "branchName",
+      "type": "promptString",
+      "description": "Вставь имя ветки (тот самый длинный ref)",
+      "default": ""
+    },
+    {
+      "id": "commitMsg",
+      "type": "promptString",
+      "description": "О чем этот коммит?",
+      "default": "work in progress"
+    }
+  ]
+}

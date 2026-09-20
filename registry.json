@@ -71,7 +71,7 @@
       "name": "theme",
       "type": "registry:theme",
       "title": "Светлая тема",
-      "description": "Роли shadcn + success/warning/info, радиус 0.125rem, шкала заголовков, Inter для описаний по data-slot.",
+      "description": "Роли shadcn + success/warning/info, радиус 0.25rem, шкала заголовков, правила по data-slot: Inter в связном тексте, видимые нажатый Toggle, дорожки, Skeleton и выбор в Command.",
       "registryDependencies": [
         "guru31337/shadcn-light-design/font-heading-tektur",
         "guru31337/shadcn-light-design/font-sans-jetbrains-mono",
@@ -86,20 +86,20 @@
         },
         "light": {
           "background": "oklch(0.975 0.007 95)",
-          "foreground": "oklch(0.235 0.018 158)",
+          "foreground": "oklch(0.17 0.015 162)",
           "card": "oklch(0.995 0.003 95)",
-          "card-foreground": "oklch(0.235 0.018 158)",
+          "card-foreground": "oklch(0.17 0.015 162)",
           "popover": "oklch(0.995 0.003 95)",
-          "popover-foreground": "oklch(0.235 0.018 158)",
-          "primary": "oklch(0.465 0.05 149)",
+          "popover-foreground": "oklch(0.17 0.015 162)",
+          "primary": "oklch(0.435 0.05 149)",
           "primary-foreground": "oklch(0.995 0.003 95)",
           "secondary": "oklch(0.862 0.014 105)",
-          "secondary-foreground": "oklch(0.235 0.018 158)",
+          "secondary-foreground": "oklch(0.17 0.015 162)",
           "muted": "oklch(0.955 0.01 97)",
           "muted-foreground": "oklch(0.475 0.018 128)",
-          "accent": "oklch(0.878 0.034 145)",
-          "accent-foreground": "oklch(0.235 0.018 158)",
-          "destructive": "oklch(0.485 0.128 25)",
+          "accent": "oklch(0.86 0.038 145)",
+          "accent-foreground": "oklch(0.17 0.015 162)",
+          "destructive": "oklch(0.45 0.128 25)",
           "success": "oklch(0.465 0.088 170)",
           "warning": "oklch(0.5 0.105 57)",
           "info": "oklch(0.47 0.076 240)",
@@ -113,11 +113,11 @@
           "chart-5": "oklch(0.545 0.048 148)",
           "radius": "0.25rem",
           "sidebar": "oklch(0.995 0.003 95)",
-          "sidebar-foreground": "oklch(0.235 0.018 158)",
-          "sidebar-primary": "oklch(0.465 0.05 149)",
+          "sidebar-foreground": "oklch(0.17 0.015 162)",
+          "sidebar-primary": "oklch(0.435 0.05 149)",
           "sidebar-primary-foreground": "oklch(0.995 0.003 95)",
-          "sidebar-accent": "oklch(0.878 0.034 145)",
-          "sidebar-accent-foreground": "oklch(0.235 0.018 158)",
+          "sidebar-accent": "oklch(0.86 0.038 145)",
+          "sidebar-accent-foreground": "oklch(0.17 0.015 162)",
           "sidebar-border": "oklch(0.862 0.014 105)",
           "sidebar-ring": "oklch(0.545 0.048 148)"
         }
@@ -171,17 +171,14 @@
           "[data-slot$=\"-description\"], [data-slot$=\"-error\"], [data-slot=\"tooltip-content\"], p": {
             "font-family": "var(--font-text)"
           },
-          "h1": {
-            "@apply type-h1": {}
+          "[data-slot=\"slider-track\"], [data-slot=\"progress-track\"], [data-slot=\"skeleton\"]": {
+            "--muted": "var(--secondary)"
           },
-          "h2": {
-            "@apply type-h2": {}
+          "[data-slot=\"command-input-wrapper\"], [data-slot=\"combobox-content\"]": {
+            "--input": "var(--border)"
           },
-          "h3": {
-            "@apply type-h3": {}
-          },
-          "h4": {
-            "@apply type-h4": {}
+          "[data-slot=\"toggle\"][aria-pressed=\"true\"], [data-slot=\"toggle-group-item\"][aria-pressed=\"true\"], [data-slot=\"command-item\"][data-selected=\"true\"]": {
+            "--muted": "var(--accent)"
           }
         }
       }

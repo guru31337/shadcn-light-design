@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { PAGES } from "./pages"
@@ -80,9 +81,11 @@ export function Shell() {
         </header>
         <div className="mx-auto flex max-w-7xl">
           <aside className="hidden w-56 shrink-0 border-r border-border md:block">
-            <div className="sticky top-14 px-3 py-8">
-              <Nav current={page.id} />
-            </div>
+            <ScrollArea className="sticky top-14 h-[calc(100svh-3.5rem)]">
+              <div className="px-3 py-8">
+                <Nav current={page.id} />
+              </div>
+            </ScrollArea>
           </aside>
           <main className="min-w-0 flex-1 px-6 py-10 md:px-12">
             <div className="mx-auto max-w-5xl">
